@@ -13,12 +13,12 @@ public class UDPClient {
 		InetAddress host = InetAddress.getByName("127.0.0.1");
 		int serverSocket = 6794;
 		while(true) {
-			DatagramPacket request = new DatagramPacket(requestMessageBytes, requestMessageBytes.length, host, serverSocket);
-			socket.send(request);
+			DatagramPacket clientRequest = new DatagramPacket(requestMessageBytes, requestMessageBytes.length, host, serverSocket);
+			socket.send(clientRequest);
 			byte[] buffer = new byte[1000];
-			DatagramPacket reply = new DatagramPacket(buffer, buffer.length);
-			socket.receive(reply);
-			System.out.println("Client received: " + new String(reply.getData()));
+			DatagramPacket serverReply = new DatagramPacket(buffer, buffer.length);
+			socket.receive(serverReply);
+			System.out.println("Client received: " + new String(serverReply.getData()));
 		}
 	}
 }
