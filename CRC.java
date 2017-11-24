@@ -36,13 +36,13 @@ public class CRC {
 		rem = computeCrc(appMessage, gen, rem);
 
 		long[] transMessage = new long[(int) totalBits];
-		System.out.println("Transmitted message from transmitter: ");
+		System.out.println("\nTransmitted message from transmitter: ");
 		for(int i = 0; i < transMessage.length; i++) {
 			transMessage[i] = (appMessage[i] ^ rem[i]);
 			System.out.print(transMessage[i]);
 		}
 		
-		System.out.println("Enter received message at receiver end: ");
+		System.out.println("\nEnter received message at receiver end: ");
 		for(int i = 0; i < transMessage.length; i++) {
 			transMessage[i] = in.nextLong();
 			rem[i] = transMessage[i];
