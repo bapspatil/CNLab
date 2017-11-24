@@ -18,10 +18,8 @@ public class TCPServer {
 		BufferedReader clientRequestBufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 		String fileRequestedStr = clientRequestBufferedReader.readLine();
 		DataOutputStream stream = new DataOutputStream(socket.getOutputStream());
-		FileReader fileReader = null;
-		BufferedReader fileBufferedReader = null;
-		boolean hasFile;
 		File fileRequested = new File(fileRequestedStr);
+		boolean hasFile;
 		if(fileRequested.exists()) {
 			hasFile = true;
 			stream.writeBytes("Yes\n");
@@ -31,8 +29,8 @@ public class TCPServer {
 			stream.writeBytes("No\n");
 		}
 		if(hasFile) {
-			fileReader = new FileReader(fileRequestedStr);
-			fileBufferedReader = new BufferedReader(fileReader);
+			FileReader fileReader = new FileReader(fileRequestedStr);
+			BufferedReader fileBufferedReader = new BufferedReader(fileReader);
 			String fileContents;
 			while((fileContents = fileBufferedReader.readLine()) != null)
 				stream.writeBytes(fileContents + "\n");
@@ -44,5 +42,4 @@ public class TCPServer {
 			fileReader.close();
 		}
 	}
-
 }
