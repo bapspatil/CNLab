@@ -53,12 +53,12 @@ public class RSA {
 			System.out.print(enc[i] + " ");
 		}
 		
-		System.out.println("Decrypted message: ");
+		System.out.println("\nDecrypted message: ");
 		for(i = 0; i < msg.length; i++) {
 			dec[i] = 1;
 			for(j = 0; j < d; j++)
 				dec[i] = (dec[i] * enc[i]) % n;
-			System.out.println((char) dec[i]);
+			System.out.print((char) dec[i]);
 		}
 		
 		in.close();
