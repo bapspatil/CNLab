@@ -24,8 +24,10 @@ public class BellmanFord {
 		
 		for(int sn = 1; sn <= vertices; sn++)
 			for(int dn = 1; dn <= vertices; dn++)
-				if(A[sn][dn] != MAX_VALUE)
+				if(A[sn][dn] != MAX_VALUE) {
 					System.out.println("Graph contains negative edge cycle.");
+					break;
+				}
 		
 		for(int vertex = 1; vertex <= vertices; vertex++)
 			System.out.println("Distance of source " + source + " to " + vertex + " is " + D[vertex]);
