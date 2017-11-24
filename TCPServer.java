@@ -12,37 +12,36 @@ import java.net.Socket;
 public class TCPServer {
 
 	public static void main(String[] args) throws IOException {
-		// TODO Auto-generated method stub
-		ServerSocket se = new ServerSocket(1534);
-		Socket q = se.accept();
+		ServerSocket serverSocket = new ServerSocket(1534);
+		Socket socket = serverSocket.accept();
 		System.out.println("Connection established.");
-		BufferedReader v = new BufferedReader(new InputStreamReader(q.getInputStream()));
-		DataOutputStream dr = new DataOutputStream(q.getOutputStream());
-		String g = v.readLine();
-		FileReader f = null;
-		BufferedReader ff = null;
-		boolean b;
-		File r = new File(g);
-		if(r.exists())
-			b = true;
-		else
-			b = false;
-		if(b)
-			dr.writeBytes("Yes\n");
-		else
-			dr.writeBytes("No\n");
-		if(b) {
-			f = new FileReader(g);
-			ff = new BufferedReader(f);
-			String qq;
-			while((qq = ff.readLine()) != null)
-				dr.writeBytes(qq + "\n");
-			dr.close();
-			ff.close();
-			v.close();
-			se.close();
-			q.close();
-			f.close();
+		BufferedReader clientRequestBufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+		String fileRequestedStr = clientRequestBufferedReader.readLine();
+		DataOutputStream stream = new DataOutputStream(socket.getOutputStream());
+		FileReader fileReader = null;
+		BufferedReader fileBufferedReader = null;
+		boolean hasFile;
+		File fileRequested = new File(fileRequestedStr);
+		if(fileRequested.exists()) {
+			hasFile = true;
+			stream.writeBytes("Yes\n");
+		}
+		else {
+			hasFile = false;
+			stream.writeBytes("No\n");
+		}
+		if(hasFile) {
+			fileReader = new FileReader(fileRequestedStr);
+			fileBufferedReader = new BufferedReader(fileReader);
+			String fileContents;
+			while((fileContents = fileBufferedReader.readLine()) != null)
+				stream.writeBytes(fileContents + "\n");
+			stream.close();
+			fileBufferedReader.close();
+			clientRequestBufferedReader.close();
+			serverSocket.close();
+			socket.close();
+			fileReader.close();
 		}
 	}
 

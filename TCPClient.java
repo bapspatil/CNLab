@@ -9,23 +9,21 @@ import java.net.Socket;
 public class TCPClient {
 
 	public static void main(String[] args) throws IOException {
-		// TODO Auto-generated method stub
-		Socket s = new Socket("localhost", 1534);	
-		BufferedReader k = new BufferedReader(new InputStreamReader(System.in));
+		Socket socket = new Socket("localhost", 1534);	
+		BufferedReader filenameBufferedReader = new BufferedReader(new InputStreamReader(System.in));
 		System.out.println("Enter file name:");
-		String filename = k.readLine();
-		DataOutputStream d = new DataOutputStream(s.getOutputStream());
-		d.writeBytes(filename + "\n");
-		BufferedReader i = new BufferedReader(new InputStreamReader(s.getInputStream()));
-		String st;
-		st = i.readLine();
-		if(st.equals("Yes")) {
-			while((st = i.readLine()) != null)
-				System.out.println(st);
-			i.close();
-			d.close();
-			k.close();
-			s.close();
+		String fileRequestedStr = filenameBufferedReader.readLine();
+		DataOutputStream stream = new DataOutputStream(socket.getOutputStream());
+		stream.writeBytes(fileRequestedStr + "\n");
+		BufferedReader serverReplyBufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+		String reply = serverReplyBufferedReader.readLine();
+		if(reply.equals("Yes")) {
+			while((reply = serverReplyBufferedReader.readLine()) != null)
+				System.out.println(reply);
+			serverReplyBufferedReader.close();
+			stream.close();
+			filenameBufferedReader.close();
+			socket.close();
 		} else {
 			System.out.println("File not found.");
 		}
