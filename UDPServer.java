@@ -7,17 +7,17 @@ import java.util.Scanner;
 public class UDPServer {
 
 	public static void main(String[] args) throws Exception {
-		Scanner sc = new Scanner(System.in);
-		DatagramSocket skt = new DatagramSocket(6794);
+		Scanner in = new Scanner(System.in);
+		DatagramSocket socket = new DatagramSocket(6794);
 		byte[] buffer = new byte[1000];
-		System.out.println("Enter server message");
+		System.out.println("Enter server message: ");
 		while(true) {
-			DatagramPacket request = new DatagramPacket(buffer, buffer.length);
-			skt.receive(request);
-			String message = sc.nextLine();
-			byte[] sendMsg = message.getBytes();
-			DatagramPacket reply = new DatagramPacket(sendMsg, sendMsg.length, request.getAddress(), request.getPort());
-			skt.send(reply);
+			DatagramPacket clientRequest = new DatagramPacket(buffer, buffer.length);
+			socket.receive(clientRequest);
+			String message = in.nextLine();
+			byte[] messageBytes = message.getBytes();
+			DatagramPacket serverReply = new DatagramPacket(messageBytes, messageBytes.length, clientRequest.getAddress(), clientRequest.getPort());
+			socket.send(serverReply);
 		}
 	}
 }

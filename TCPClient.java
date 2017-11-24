@@ -5,14 +5,15 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
+import java.util.Scanner;
 
 public class TCPClient {
 
 	public static void main(String[] args) throws IOException {
 		Socket socket = new Socket("localhost", 1534);	
-		BufferedReader filenameBufferedReader = new BufferedReader(new InputStreamReader(System.in));
+		Scanner in = new Scanner(System.in);
 		System.out.println("Enter file name:");
-		String fileRequestedStr = filenameBufferedReader.readLine();
+		String fileRequestedStr = in.nextLine();
 		DataOutputStream stream = new DataOutputStream(socket.getOutputStream());
 		stream.writeBytes(fileRequestedStr + "\n");
 		BufferedReader serverReplyBufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
@@ -22,7 +23,7 @@ public class TCPClient {
 				System.out.println(reply);
 			serverReplyBufferedReader.close();
 			stream.close();
-			filenameBufferedReader.close();
+			in.close();
 			socket.close();
 		} else {
 			System.out.println("File not found.");

@@ -23,8 +23,7 @@ public class TCPServer {
 		if(fileRequested.exists()) {
 			hasFile = true;
 			stream.writeBytes("Yes\n");
-		}
-		else {
+		} else {
 			hasFile = false;
 			stream.writeBytes("No\n");
 		}
