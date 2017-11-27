@@ -10,10 +10,10 @@
 #include "ns3/point-to-point-helper.h"
 #include "ns3/config-store.h"
 using namespace ns3;
-NS_LOG_COMPONENT_DEFINE("GSM Program");
+NS_LOG_COMPONENT_DEFINE("CDMA Program");
 
 int main(int argc, char *argv[]) {
-    uint16_t numberOfNodes = 1;
+    uint16_t numberOfNodes = 5;
     double simTime = 1.1;
     double distance = 60.0;
     double interPacketInterval = 100;
@@ -123,7 +123,7 @@ int main(int argc, char *argv[]) {
 
     lteHelper->EnableTraces();
     AsciiTraceHelper ascii;
-    p2ph.EnableAsciiAll(ascii.CreateFileStream("gsm.tr"));
+    p2ph.EnableAsciiAll(ascii.CreateFileStream("cdma.tr"));
 
     Simulator::Stop(Seconds(simTime));
     Simulator::Run();
