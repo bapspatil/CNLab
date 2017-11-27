@@ -118,8 +118,7 @@ void MyApp::ScheduleTx (void)
         m_sendEvent = Simulator::Schedule (tNext, &MyApp::SendPacket, this);
     }
 }
-//Below function logs the current simulation time and the new value of the
-congestion window every time it is changed.
+//Below function logs the current simulation time and the new value of the congestion window every time it is changed.
 static void CwndChange (uint32_t oldCwnd, uint32_t newCwnd)
 {
     NS_LOG_UNCOND (Simulator::Now ().GetSeconds () <<"\t"<< newCwnd);
